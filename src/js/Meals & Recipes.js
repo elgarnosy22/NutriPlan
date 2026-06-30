@@ -136,19 +136,6 @@ export async function displayDetails(index) {
   const meal = finalData[index];
   const meal2 = meal.ingredients || [];
 
-  const goalProtein = 150;
-  const goalCarbs = 250;
-  const goalFat = 65;
-  const goalFiber = 30;
-  const goalSugar = 50;
-  const goalSatFat = 20;
-
-  const proteinWidth = Math.min(100, Math.round((Protein / goalProtein) * 100));
-  const carbsWidth = Math.min(100, Math.round((Carbs / goalCarbs) * 100));
-  const fatWidth = Math.min(100, Math.round((Fat / goalFat) * 100));
-  const fiberWidth = Math.min(100, Math.round((Fiber / goalFiber) * 100));
-  const sugarWidth = Math.min(100, Math.round((Sugar / goalSugar) * 100));
-  const satFatWidth = Math.min(100, Math.round((SaturatedFat / goalSatFat) * 100));
   if (!meal) return;
 
   const prepTime = Math.floor(Math.random() * 45) + 15;
@@ -250,6 +237,19 @@ export async function displayDetails(index) {
         </div>`;
     }
   }
+    const goalProtein = 150;
+    const goalCarbs = 250;
+    const goalFat = 65;
+    const goalFiber = 30;
+    const goalSugar = 50; 
+    const goalSatFat = 20;
+
+    const proteinWidth = Math.min(100, Math.round((Protein / goalProtein) * 100));
+    const carbsWidth = Math.min(100, Math.round((Carbs / goalCarbs) * 100));
+    const fatWidth = Math.min(100, Math.round((Fat / goalFat) * 100));
+    const fiberWidth = Math.min(100, Math.round((Fiber / goalFiber) * 100));
+    const sugarWidth = Math.min(100, Math.round((Sugar / goalSugar) * 100));
+    const satFatWidth = Math.min(100, Math.round((SaturatedFat / goalSatFat) * 100));
 
   let cartona = `
   <div class="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
