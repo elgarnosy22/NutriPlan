@@ -11,7 +11,7 @@ export function initFoodLog() {
     updateDate();
     renderFoodLog();
     setupEventListeners();
-    renderWeeklyOverview(); // دي الفانكشن الجديدة
+    renderWeeklyOverview();
 }
 
 function updateDate() {
@@ -47,7 +47,6 @@ export function renderFoodLog() {
         let typeLabel = item.type === 'product' ? 'Product' : 'Recipe';
         let servingsOrBrand = item.type === 'product' ? (item.brand || item.name) : `${item.servings || 1} serving`;
 
-        // لو مفيش وقت متسجل، هنحط وقت افتراضي زي الصورة
         let timeStr = '1:10 AM';
         if (item.dateAdded) {
             const d = new Date(item.dateAdded);
@@ -92,7 +91,6 @@ export function renderFoodLog() {
         });
     });
 
-    // بنحدث البيانات الكلية
     renderWeeklyOverview();
 }
 
@@ -139,7 +137,6 @@ function renderWeeklyOverview() {
         const hasData = dayItemsCount > 0;
 
         if (day.isToday) {
-            // تصميم اليوم الحالي (لون أزرق فاتح زي الصورة)
             html += `
             <div class="flex-1 flex flex-col items-center bg-indigo-50 rounded-2xl py-4 px-2 min-w-[80px]">
               <span class="text-sm text-gray-500 mb-1">${day.dayName}</span>
@@ -149,7 +146,6 @@ function renderWeeklyOverview() {
               <span class="text-[11px] text-gray-500 mt-1">${dayItemsCount} items</span>
             </div>`;
         } else {
-            // تصميم باقي الأيام
             let calColorClass = hasData ? 'text-emerald-600' : 'text-gray-300';
             let calLabelClass = hasData ? 'text-emerald-600' : 'text-gray-300';
 
@@ -193,7 +189,7 @@ function removeLogItem(index) {
     logs.splice(index, 1);
     localStorage.setItem('nutriplan_logs', JSON.stringify(logs));
     renderFoodLog();
-    renderWeeklyOverview(); // بنحدث الرسم البياني لما نمسح حاجة
+    renderWeeklyOverview();
 }
 
 function setupEventListeners() {
@@ -212,7 +208,7 @@ function setupEventListeners() {
                 if (result.isConfirmed) {
                     localStorage.removeItem('nutriplan_logs');
                     renderFoodLog();
-                    renderWeeklyOverview(); // بنحدث الرسم البياني لما نمسح الكل
+                    renderWeeklyOverview();
                     Swal.fire('Cleared!', 'Your food log has been cleared.', 'success');
                 }
             });
