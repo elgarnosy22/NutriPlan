@@ -116,7 +116,7 @@ export function details() {
       document.getElementById("products-section").classList.add("hidden")
       document.getElementById("foodlog-section").classList.add("hidden")
       document.getElementById("meal-details").classList.remove("hidden")
-      
+
       await displayDetails(i);
     })
   }
@@ -124,10 +124,10 @@ export function details() {
 
 const backBtn = document.getElementById("back-to-meals-btn")
 backBtn.addEventListener('click', () => {
-document.getElementById("search-filters-section").classList.remove("hidden")
+  document.getElementById("search-filters-section").classList.remove("hidden")
   document.getElementById("meal-categories-section").classList.remove("hidden")
   document.getElementById("all-recipes-section").classList.remove("hidden")
-    document.getElementById("products-section").classList.add("hidden")
+  document.getElementById("products-section").classList.add("hidden")
   document.getElementById("foodlog-section").classList.add("hidden")
   document.getElementById("meal-details").classList.add("hidden")
 })
@@ -136,10 +136,23 @@ export async function displayDetails(index) {
   const meal = finalData[index];
   const meal2 = meal.ingredients || [];
 
+  const goalProtein = 150;
+  const goalCarbs = 250;
+  const goalFat = 65;
+  const goalFiber = 30;
+  const goalSugar = 50;
+  const goalSatFat = 20;
+
+  const proteinWidth = Math.min(100, Math.round((Protein / goalProtein) * 100));
+  const carbsWidth = Math.min(100, Math.round((Carbs / goalCarbs) * 100));
+  const fatWidth = Math.min(100, Math.round((Fat / goalFat) * 100));
+  const fiberWidth = Math.min(100, Math.round((Fiber / goalFiber) * 100));
+  const sugarWidth = Math.min(100, Math.round((Sugar / goalSugar) * 100));
+  const satFatWidth = Math.min(100, Math.round((SaturatedFat / goalSatFat) * 100));
   if (!meal) return;
 
   const prepTime = Math.floor(Math.random() * 45) + 15;
-  
+
   let servings = 1;
   let calories = 0, Protein = 0, Carbs = 0, Fat = 0, Fiber = 0, Sugar = 0, SaturatedFat = 0;
 
@@ -152,9 +165,9 @@ export async function displayDetails(index) {
         'Content-Type': 'application/json',
         'x-api-key': 'zprk1pBavLcs5182ptkPyIzV1sis1bxz9rNf3em4'
       },
-      body: JSON.stringify({ 
-        recipeName: meal.name, 
-        ingredients: ingredientsList 
+      body: JSON.stringify({
+        recipeName: meal.name,
+        ingredients: ingredientsList
       })
     });
 
@@ -163,7 +176,7 @@ export async function displayDetails(index) {
       if (jsonResponse.success && jsonResponse.data) {
         const apiData = jsonResponse.data;
         servings = apiData.servings || 1;
-        
+
         if (apiData.perServing) {
           calories = Math.round(apiData.perServing.calories || 0);
           Protein = Math.round(apiData.perServing.protein || 0);
@@ -315,7 +328,7 @@ export async function displayDetails(index) {
                       <span class="font-bold text-gray-900">${Protein}g</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-2">
-                      <div class="bg-emerald-500 h-2 rounded-full" style="width: 84%"></div>
+                      <div class="bg-emerald-500 h-2 rounded-full" style="width: ${proteinWidth}%"></div>
                     </div>
 
                     <div class="flex items-center justify-between">
@@ -326,7 +339,7 @@ export async function displayDetails(index) {
                       <span class="font-bold text-gray-900">${Carbs}g</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-2">
-                      <div class="bg-blue-500 h-2 rounded-full" style="width: 17%"></div>
+                      <div class="bg-blue-500 h-2 rounded-full" style="width: ${carbsWidth}%"></div>
                     </div>
 
                     <div class="flex items-center justify-between">
@@ -337,7 +350,7 @@ export async function displayDetails(index) {
                       <span class="font-bold text-gray-900">${Fat}g</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-2">
-                      <div class="bg-purple-500 h-2 rounded-full" style="width: 12%"></div>
+                      <div class="bg-purple-500 h-2 rounded-full" style="width: ${fatWidth}%"></div>
                     </div>
 
                     <div class="flex items-center justify-between">
@@ -348,7 +361,7 @@ export async function displayDetails(index) {
                       <span class="font-bold text-gray-900">${Fiber}g</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-2">
-                      <div class="bg-orange-500 h-2 rounded-full" style="width: 14%"></div>
+                      <div class="bg-orange-500 h-2 rounded-full" style="width: ${fiberWidth}%"></div>
                     </div>
 
                     <div class="flex items-center justify-between">
@@ -359,7 +372,7 @@ export async function displayDetails(index) {
                       <span class="font-bold text-gray-900">${Sugar}g</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-2">
-                      <div class="bg-pink-500 h-2 rounded-full" style="width: 24%"></div>
+                      <div class="bg-pink-500 h-2 rounded-full" style="width: ${sugarWidth}%"></div>
                     </div>
                     <div class="flex items-center justify-between">
                       <div class="flex items-center gap-2">
@@ -369,7 +382,7 @@ export async function displayDetails(index) {
                       <span class="font-bold text-gray-900">${SaturatedFat}g</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-2">
-                      <div class="bg-pink-500 h-2 rounded-full" style="width: 50%"></div>
+                      <div class="bg-pink-500 h-2 rounded-full" style="width: ${satFatWidth}%"></div>
                     </div>
                   </div>
       </div>
